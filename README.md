@@ -3,10 +3,10 @@ Arduino library for the MB4052 4-Channel 8-Bit A/D Converter
 
 ## MB4052 
 
-Arduino_MB4052 object enables performing ADC using the Fujitsy MB4052 
+Arduino_MB4052 object enables performing ADC using the Fujitsu MB4052 
   
   ```C
-  Arduino_MB4052(uint8_t m_cs_pin, uint8_t clk_pin, uint8_t data_pin, uint8_t c0_pin, uint8_t c1_pin) // constructor
+  Arduino_MB4052(uint8_t m_cs_pin, uint8_t clk_pin, uint8_t data_pin, uint8_t c0_pin, uint8_t c1_pin) 
     m_cs_pin -> to MB4052 CS pin
     clk_pin  -> to MB4052 ADC CLK pin (max. 100kHz) 
     data_pin -> to MB4052 Data Out pin 
