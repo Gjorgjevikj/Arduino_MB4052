@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For PWMsense
+#######################################
+
+#######################################
+# DataTypes (KEYWORD1)
+#######################################
+
+Arduino_MB4052_1ch	KEYWORD1
+Arduino_MB4052	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+## Arduino_MB4052
+begin	KEYWORD2
+readADC	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+ADC_TWACH	LITERAL1
+ADC_TWACL	LITERAL1
+ADC_CSWCS	LITERAL1
+ADC_CSSCS	LITERAL1
+ADC_CSHCS	LITERAL1
+ADC_CHHCH	LITERAL1
+ADC_PROPD	LITERAL1
+
