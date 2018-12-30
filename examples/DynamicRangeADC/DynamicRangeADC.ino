@@ -13,8 +13,8 @@ typedef enum
 	RANGE_Vcc_1_8 = 0  // Range Vcc/8
 } ADCRange_t;
 
-/// <summary> Arduino_MB4052_dr Dynamic range class
-/// for performing adc on selected chanel automatically adjusting the range
+/// <summary> 
+/// Interface Class to MB4052 for performing dynamic range ADC on specified channel automatically adjusting the range
 /// </summary>
 class Arduino_MB4052_dr : private Arduino_MB4052
 {
@@ -23,8 +23,8 @@ protected:
 	ADCRange_t m_range;
 	float m_Vcc;
 public:
-	/// <summary> Arduino_MB4052_dr constructor
-	/// Instantiates Arduino_MB4052_dr object for performing adc on selected chanel with dynamic range adjusment
+	/// <summary> 
+	/// Instantiates Arduino_MB4052_dr object for performing ADC on specified channel with dynamic range adjusment
 	/// </summary>
 	/// <param name="m_cs_pin"> to MB4052 CS pin (active on LOW) </param>
 	/// <param name="clk_pin"> to MB4052 ADC CLK pin (max. 100kHz) </param>
@@ -35,8 +35,8 @@ public:
 	Arduino_MB4052_dr(uint8_t m_cs_pin, uint8_t clk_pin, uint8_t data_pin, uint8_t c0_pin, uint8_t c1_pin, uint8_t r_pin)
 		: Arduino_MB4052(m_cs_pin, clk_pin, data_pin, c0_pin, c1_pin), m_rs(r_pin), m_Vcc(5.0), m_range(RANGE_Vcc_1_2) { }
 
-	/// <summary> Arduino_MB4052_dr begin
-	/// Sets up the HW
+	/// <summary> 
+	/// Set up the HW
 	/// </summary>
 	void begin(ADCRange_t range)
 	{
@@ -45,7 +45,7 @@ public:
 		setRange(range);
 	}
 
-	/// <summary> Sets up the range </summary>
+	/// <summary> Set up the range </summary>
 	/// <param name="range"> RANGE_Vcc_1_2 or RANGE_Vcc_1_8 </param>
 	void setRange(ADCRange_t range)
 	{
@@ -61,22 +61,22 @@ public:
 		return m_range;
 	}
 
-	/// <summary> Sets the Vcc value </summary>
+	/// <summary> Set the Vcc value </summary>
 	/// <param name="vcc"> the voltage on Vcc1 </param>
 	void setVcc(float vcc)
 	{
 		m_Vcc = vcc;
 	}
 	
-	/// <summary> Gets the setted Vcc value </summary>
+	/// <summary> Get the setted Vcc value </summary>
 	/// <returns> returns the setted Vcc value </returns>
 	float getVcc(void) const
 	{
 		return m_Vcc;
 	}
 
-	/// <summary> Performs ADC on selected chanel and converts to voltage /// </summary>
-	/// <remark> If signal value allows, automaticaly reduces the range 
+	/// <summary> Performs ADC on selected channel and converts to voltage /// </summary>
+	/// <remark> If signal value allows, automatically reduces the range 
 	/// and performs another read for obtaining better precision </remark>
 	/// <param name="ch"> chanel to read from 0-3 </param>
 	/// <returns> returns the value read in volts </returns>
@@ -89,20 +89,20 @@ public:
 			aval /= 4;
 		else if (aval < 0.9 * m_Vcc / 8)
 		{
-			//Serial.print('*');
 			setRange(RANGE_Vcc_1_8);
 			dval = readADC(ch);
 			aval = dval * m_Vcc / (8 * 256);
 			setRange(RANGE_Vcc_1_2);
 		}
-
 		return aval;
 	}
 };
 
 Arduino_MB4052_dr adc(ADC_CS, ADC_CLK, ADC_DATA, ADC_C0, ADC_C1, ADC_RS);
 
-const float Vcc = 4.685;
+const float Vcc = 4.685; // measured on +5V pin when powered from USB
+// powering from unregulated source on Vin gives very close to 5V on +5V 
+// or you can supply +8-12V to MB4052 Vcc2 and get +5V on Vcc1 
 
 void setup()
 {

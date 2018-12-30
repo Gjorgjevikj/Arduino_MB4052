@@ -1,7 +1,7 @@
 /**************************************************************************/
 /*!
-    @file     Arduino_MB4052.cpp
-    @author   D.Gjorgjevikj
+    @file     Arduino_MB4052.h
+    @author   Dejan Gjorgjevikj
     @license  MIT (see license.txt)
     
 	Arduino library for the MB4052 4-Channel 8-Bit A/D Converter 
@@ -23,7 +23,7 @@
 #endif
 
 /*=========================================================================
-	CONVERSION DELAYS (in uS) according the datashet 
+	CONVERSION DELAYS (in uS) according the datasheet 
 	https://pdf.datasheet.live/c4d38c53/fujitsu.com/MB4052PF.pdf
 	-----------------------------------------------------------------------*/
 #define ADC_TWACH (5) // ADC CLK H Level Pulse Width
@@ -35,8 +35,8 @@
 #define ADC_PROPD (2) // Propagation Delay Time
 /*=========================================================================*/
 
-/// <summary> Arduino_MB4052_1ch Class 
-/// for performing adc on a single chanel (harwired selection)
+/// <summary> 
+/// Interface Class to MB4052 for performing ADC on a single (hardwired / preselected) channel 
 /// </summary>
 class Arduino_MB4052_1ch
 {
@@ -50,8 +50,8 @@ public:
 	uint8_t readADC() const;
 };
 
-/// <summary> Arduino_MB4052 Class 
-/// for performing adc on selected chanel 
+/// <summary>
+/// Interface class to MB4052 for performing ADC on specified channel 
 /// </summary>
 class Arduino_MB4052 : private Arduino_MB4052_1ch
 {

@@ -1,7 +1,7 @@
 /**************************************************************************/
 /*!
     @file     Arduino_MB4052.cpp
-    @author   D.Gjorgjevikj
+    @author   Dejan Gjorgjevikj
     @license  MIT (see license.txt)
 
 	Arduino library for the MB4052 4-Channel 8-Bit A/D Converter 
@@ -13,8 +13,8 @@
 
 #include "Arduino_MB4052.h"
 
-/// <summary> Arduino_MB4052_1ch constructor
-/// Instantiates Arduino_MB4052_1ch object for performing adc on a single chanel (harwired selection)
+/// <summary> 
+/// Instantiates object for communicating to the MB4052 - ADC from preselected channel
 /// </summary>
 /// <param name="m_cs_pin"> to MB4052 CS pin (active on LOW) </param>
 /// <param name="clk_pin"> to MB4052 ADC CLK pin (max. 100kHz) </param>
@@ -22,9 +22,7 @@
 Arduino_MB4052_1ch::Arduino_MB4052_1ch(uint8_t m_cs_pin, uint8_t clk_pin, uint8_t data_pin) 
 	: m_cs(m_cs_pin), m_clk(clk_pin), m_data(data_pin) { };
 
-/// <summary> Arduino_MB4052_1ch begin
-/// Sets up the HW
-/// </summary>
+/// <summary> Set up the HW </summary>
 void Arduino_MB4052_1ch::begin(void) const
 {
 	pinMode(m_data, INPUT_PULLUP);
@@ -34,14 +32,14 @@ void Arduino_MB4052_1ch::begin(void) const
 	digitalWrite(m_clk, LOW);
 }
 
-/// <summary> Performs ADC on the HW setted chanel /// </summary>
+/// <summary> Performs ADC on the preselected channel /// </summary>
 /// <returns> returns the value read (0-255) </returns>
 uint8_t Arduino_MB4052_1ch::readADC() const
 {
 	static unsigned long last_on = 0UL; // time of last CS deactivated
 	uint8_t val = 0;
 
-	// wait for the minimum time if necesarry 
+	// wait for the minimum time if necessary  
 	while (micros() - last_on < ADC_CSWCS)
 		;
 	digitalWrite(m_cs, LOW);
@@ -76,8 +74,8 @@ uint8_t Arduino_MB4052_1ch::readADC() const
 	return val;
 }
 
-/// <summary> Arduino_MB4052 constructor
-/// Instantiates Arduino_MB4052 object for performing adc on selected channel
+/// <summary> 
+/// Instantiates object for communicating to the MB4052 performing ADC on specified channel
 /// </summary>
 /// <param name="m_cs_pin"> to MB4052 CS pin (active on LOW) </param>
 /// <param name="clk_pin"> to MB4052 ADC CLK pin (max. 100kHz) </param>
@@ -87,9 +85,7 @@ uint8_t Arduino_MB4052_1ch::readADC() const
 Arduino_MB4052::Arduino_MB4052(uint8_t m_cs_pin, uint8_t clk_pin, uint8_t data_pin, uint8_t c0_pin, uint8_t c1_pin)
 	: Arduino_MB4052_1ch(m_cs_pin, clk_pin, data_pin), m_c0(c0_pin), m_c1(c1_pin) { };
 
-/// <summary> Arduino_MB4052 begin
-/// Sets up the HW
-/// </summary>
+/// <summary> Set up the HW </summary>
 void Arduino_MB4052::begin(void) const
 {
 	Arduino_MB4052_1ch::begin();
@@ -97,8 +93,8 @@ void Arduino_MB4052::begin(void) const
 	pinMode(m_c1, OUTPUT);
 };
 
-/// <summary> Performs ADC on a selected chanel /// </summary>
-/// <param name="ch"> chanel to read from 0-3 </param>
+/// <summary> Performs ADC on a selected channel /// </summary>
+/// <param name="ch"> channel to read from 0-3 </param>
 /// <returns> returns the value read (0-255) </returns>
 uint8_t Arduino_MB4052::readADC(uint8_t ch) const
 {

@@ -4,7 +4,7 @@
 #define ADC_CLK 3	// connected to MB4052 ADC CLK pin
 #define ADC_DATA 4	// connected to MB4052 Data out pin
 
-// MB4052s CO, C1 and RS should be prewired for selecting the chanel and the range
+// MB4052s CO, C1 and RS should be prewired for selecting the channel and the range
 
 Arduino_MB4052_1ch adc(ADC_CS, ADC_CLK, ADC_DATA);
 

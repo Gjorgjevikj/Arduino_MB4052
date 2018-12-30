@@ -8,6 +8,7 @@
 
 Arduino_MB4052_1ch	KEYWORD1
 Arduino_MB4052	KEYWORD1
+MB4052	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
